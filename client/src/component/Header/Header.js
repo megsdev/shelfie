@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import '../../App.css';
+
 
 export default function Header()  {
         return (
-            <div>
-                <h2>Header</h2>
+            <div className="header">
+                <h2>SHELFIE</h2>
             </div>
         )
 }

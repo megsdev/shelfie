@@ -24,7 +24,6 @@ module.exports = {
 
     delete: (req, res, next) => {
         const dbInstance = req.app.get('db')
-        console.log('this is dbInstance', dbInstance)
 
         dbInstance.delete_product([ req.params.id ])
         .then( (products) => res.status(200).send(products) )

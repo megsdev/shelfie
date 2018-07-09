@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import '../../App.css';
+
 
 const BASE_URL = 'http://localhost:4000'
 
@@ -45,14 +47,18 @@ export default class Form extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Form</h2>
+            <div className="form-container">
                 {console.log('this is state', this.state)}
+                <h3>Product Name: </h3>
                 <input placeholder="product name" onChange={ event => this.updateName( event.target.value )}/>
+                <h3>Price: </h3>
                 <input placeholder="product price" onChange={ event => this.updatePrice( event.target.value )}/>
+                <h3>Image URL: </h3>
                 <input placeholder="product image URL" onChange={ event => this.updateImage( event.target.value )}/>
-                <button onClick={ () => this.resetState() }>Cancel</button>
-                <button onClick={ () => this.addProduct()}>Add to inventory</button>
+                <div className="row-container">
+                    <button onClick={ () => this.resetState() }>Cancel</button>
+                    <button onClick={ () => this.addProduct()}>Add to inventory</button>
+                </div>
             </div>
         )
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 
@@ -14,7 +13,8 @@ class App extends Component {
     super()
 
     this.state = {
-      inventoryList: []
+      inventoryList: [],
+      selectedProduct: []
     }
   }
 
@@ -35,8 +35,10 @@ componentDidMount = () => {
     return (
       <div className="App">
         <Header />
-        <Dashboard inventoryList={this.state.inventoryList} getProducts={this.getProducts}/>
-        <Form getProducts={this.getProducts}/>
+        <div className="row-container">
+          <Dashboard inventoryList={this.state.inventoryList} getProducts={this.getProducts}/>
+          <Form getProducts={this.getProducts} selectedProduct={this.state.selectedProduct} />
+        </div>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Product from './../Product/Product'
 import axios from 'axios'
+import '../../App.css';
+
 
 const BASE_URL = 'http://localhost:4000'
 
@@ -23,8 +25,7 @@ export default class Dashboard extends Component {
 
         return (
             <div>
-                <h2>Dashboard</h2>
-                    <Product inventoryList={this.props.inventoryList} deleteProduct={this.deleteProduct} />    
+                <Product inventoryList={this.props.inventoryList} deleteProduct={this.deleteProduct} />    
             </div>
         )
     }
