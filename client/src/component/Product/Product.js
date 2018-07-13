@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
+import {Link} from 'react-router-dom'
 import '../../App.css';
 
 
 const Product = (props) => {
-    console.log('this is props', this.props)
+    console.log('this is props on Product:', props)
         return (
             <div>
                 {props.inventoryList.map( (product) => (
@@ -13,11 +14,16 @@ const Product = (props) => {
                             <h3>{product.name}</h3>
                             <h3>${product.price}</h3>
                         </div>
-                        <button onClick={() => props.deleteProduct(product.id)} >Delete</button>
+                        <div className="row-container">
+                            <Link to={`/edit/${product.id}`}><button>Edit</button></Link>
+                            <button onClick={() => props.deleteProduct(product.id)}>Delete</button>
+                        </div>
                     </div>
                 ) )}
             </div>
         )
 }
+
+
 
 export default Product 

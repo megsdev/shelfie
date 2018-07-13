@@ -24,6 +24,8 @@ massive(process.env.CONNECTION_STRING, {
 app.get('/api/inventory', controller.getInventory)
 app.post('/api/product', controller.addProduct)
 app.delete('/api/product/:id', controller.delete)
+app.put('/api/product/:id', controller.edit)
+app.get('/api/inventory/:id', controller.getOne)
 
 
 const port = 4000

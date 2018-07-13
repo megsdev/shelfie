@@ -39,7 +39,7 @@ img {
 
 .product-container {
   width: 450px;
-  height: 315px;
+  height: 400px;
   background-color: #C2503E;
   display: flex;
   flex-direction: column;

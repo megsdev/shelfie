@@ -6,7 +6,7 @@ module.exports = {
         .then( products => res.status(200).send(products) )
         .catch( error => {
             res.status(500).send({errorMessage: 'Something went wrong'})
-            console.warn('error: ', error)
+            console.log('error: ', error)
         })
     },
 
@@ -30,6 +30,29 @@ module.exports = {
         .catch( error => {
             res.status(500).send({errorMessage: 'Something went wrong',})
             console.log('error', error)
+        })
+    },
+
+    edit: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+        const { name, price, imageUrl } = req.body;
+
+        dbInstance.edit_product([req.params.id, name, price, imageUrl])
+        .then(() => res.status(200).send())
+        .catch(() => {
+            res.status(500).send({errorMessage: 'Something went wrong',})
+            console.log('error', error)
+        });
+    },
+
+    getOne: (req, res, next) => {
+        const dbInstance = req.app.get('db')
+        
+        dbInstance.get_one([req.params.id])
+        .then( product => res.status(200).send(product) )
+        .catch( error => {
+            res.status(500).send({errorMessage: 'Something went wrong'})
+            console.log('error: ', error)
         })
     }
 

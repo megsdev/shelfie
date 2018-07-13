@@ -8,8 +8,26 @@ const BASE_URL = 'http://localhost:4000'
 
 
 export default class Dashboard extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            inventoryList: [],
+            selectedProduct: {}
+          }
+    }
+
+    getProducts = () => {
+        axios({
+          method: 'GET',
+          url: BASE_URL + '/api/inventory',
+        }).then(response => {
+          this.setState({ inventoryList: response.data })
+        })
+    }
+
+    componentDidMount = () => {
+        this.getProducts()
     }
 
     deleteProduct = ( id ) => {
@@ -25,7 +43,7 @@ export default class Dashboard extends Component {
 
         return (
             <div>
-                <Product inventoryList={this.props.inventoryList} deleteProduct={this.deleteProduct} />    
+                <Product inventoryList={this.state.inventoryList} deleteProduct={this.deleteProduct} productSelected={this.state.productSelected} />    
             </div>
         )
     }
