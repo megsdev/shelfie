@@ -14,6 +14,16 @@
   font-weight: 700;
 }
 
+.dash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-description {
+  margin: 20px;
+}
+
 img {
   max-width: 320px;
   max-height: 200px;
@@ -25,7 +35,7 @@ img {
   width: 450px;
   background-color: #72D48E;
   border-radius: 10px;
-  margin: 20px auto;
+  margin: 40px auto;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -34,7 +44,7 @@ img {
 
 .row-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .product-container {
@@ -53,7 +63,15 @@ button {
   font-size: 15px;
   height: 5em;
   border-radius: 10px;
+  border: none;
+}
 
+.green-btn {
+  background-color: #72D48E;
+}
+
+.red-btn {
+  background-color: #DC7260;
 }
 
 input {

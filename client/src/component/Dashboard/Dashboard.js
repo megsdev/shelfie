@@ -30,19 +30,23 @@ export default class Dashboard extends Component {
         this.getProducts()
     }
 
+    componentDidUpdate = () => {
+        this.getProducts()
+    }
+
     deleteProduct = ( id ) => {
         axios({
             method: 'DELETE',
             url: BASE_URL + '/api/product/' + id
         }).then(response => {
-            this.props.getProducts()
+            this.getProducts()
         })
     } 
 
     render() {
 
         return (
-            <div>
+            <div className="dash-container">
                 <Product inventoryList={this.state.inventoryList} deleteProduct={this.deleteProduct} productSelected={this.state.productSelected} />    
             </div>
         )

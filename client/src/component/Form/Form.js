@@ -15,39 +15,35 @@ export default class Form extends Component {
             imageUrl: '',
             productName: '',
             productPrice: '',
-            editing: null,
+            editing: false,
             selectedProductId: 0
         }
     }
 
-    componentDidUpdate = (prevProps) => {
-        if(this.props !== prevProps) {
-            this.setState({
-                productName: this.props.selectedProduct.name,
-                productPrice: this.props.selectedProduct.price,
-                imageUrl: this.props.selectedProduct.image,
-                selectedProductId: this.props.selectedProduct.id,
-                editing: !this.state.editing
-            })
+    //The componentDidUpdate lifecycle hook should now be used to clear the inputs if the user navigates from the Edit view to the Add view.
             
-        }
-    }
+    // componentDidUpdate = () => {
+    //     this.resetState()
+    // }
 
     editOne = (id) => {
         axios({
             method: 'GET',
             url: BASE_URL + '/api/inventory/' + id
         }).then(response => {
+            console.log('response', response)
             this.setState({
-                imageUrl: response.data.image,
-                productName: response.data.name,
-                productPrice: response.data.price
+                imageUrl: response.data[0].image,
+                productName: response.data[0].name,
+                productPrice: response.data[0].price,
+                selectedProductId: response.data[0].id,
+                editing: true
             })
         })
     }
 
-    componentDidMount = (id) => {
-        this.editOne(id)
+    componentDidMount = () => {
+            this.editOne(this.props.match.params.id)
     }
 
     updateImage = ( text ) => {
@@ -67,7 +63,7 @@ export default class Form extends Component {
             imageUrl: '', 
             productName: '', 
             productPrice: '',
-            editing: null
+            editing: false
         })
     }
 
@@ -80,7 +76,8 @@ export default class Form extends Component {
                 price: this.state.productPrice,
                 imageUrl: this.state.imageUrl
             }
-        }).then(this.props.getProducts()).then(this.resetState())
+        })
+        .then(this.resetState())
     }
 
 
@@ -93,7 +90,7 @@ export default class Form extends Component {
                 price: this.state.productPrice,
                 imageUrl: this.state.imageUrl
             }
-        }).then(this.props.getProducts()).then(this.resetState())
+        }).then(this.resetState())
     }
 
     render() {
@@ -112,8 +109,8 @@ export default class Form extends Component {
                         <h3>Image URL: </h3>
                         <input value={this.state.imageUrl} onChange={ event => this.updateImage( event.target.value )}/>
                         <div className="row-container">
-                            <Link to='/'><button>Cancel</button></Link>
-                            <Link to='/'><button>Save Changes</button></Link>
+                            <Link to='/'><button className="red-btn">Cancel</button></Link>
+                            <Link to='/'><button onClick={() => this.editProduct(this.props.match.params.id)} className="red-btn">Save Changes</button></Link>
                         </div>
                     </div>
                     :
@@ -125,8 +122,8 @@ export default class Form extends Component {
                         <h3>Image URL: </h3>
                         <input placeholder="product image URL" onChange={ event => this.updateImage( event.target.value )}/>
                         <div className="row-container">
-                            <Link to='/'><button>Cancel</button></Link>
-                            <Link to='/'><button>Add to inventory</button></Link>
+                            <Link to='/'><button className="red-btn">Cancel</button></Link>
+                            <Link to='/'><button onClick={this.addProduct} className="red-btn">Add to inventory</button></Link>
                         </div>
                     </div>
                 }
