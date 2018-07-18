@@ -22,16 +22,17 @@ export default class Form extends Component {
 
     //The componentDidUpdate lifecycle hook should now be used to clear the inputs if the user navigates from the Edit view to the Add view.
             
-    // componentDidUpdate = () => {
-    //     this.resetState()
-    // }
+    componentDidUpdate = (prevProps, prevState, snapshot) => {
+        if(prevProps.match.path === "/edit/:id" && prevState.editing) {
+            this.resetState()
+        }
+    }
 
     editOne = (id) => {
         axios({
             method: 'GET',
             url: BASE_URL + '/api/inventory/' + id
         }).then(response => {
-            console.log('response', response)
             this.setState({
                 imageUrl: response.data[0].image,
                 productName: response.data[0].name,
@@ -94,9 +95,6 @@ export default class Form extends Component {
     }
 
     render() {
-        console.log('this is props on form', this.props)
-        console.log('this is state on form', this.state)
-
         return ( 
             <div>
                 {this.state.editing 
@@ -116,11 +114,11 @@ export default class Form extends Component {
                     :
                     <div className="form-container">
                         <h3>Product Name: </h3>
-                        <input placeholder="product name" onChange={ event => this.updateName( event.target.value )}/>
+                        <input value={this.state.productName} placeholder="product name" onChange={ event => this.updateName( event.target.value )}/>
                         <h3>Price: </h3>
-                        <input placeholder="product price" onChange={ event => this.updatePrice( event.target.value )}/>
+                        <input value={this.state.productPrice} placeholder="product price" onChange={ event => this.updatePrice( event.target.value )}/>
                         <h3>Image URL: </h3>
-                        <input placeholder="product image URL" onChange={ event => this.updateImage( event.target.value )}/>
+                        <input value={this.state.imageUrl} placeholder="product image URL" onChange={ event => this.updateImage( event.target.value )}/>
                         <div className="row-container">
                             <Link to='/'><button className="red-btn">Cancel</button></Link>
                             <Link to='/'><button onClick={this.addProduct} className="red-btn">Add to inventory</button></Link>

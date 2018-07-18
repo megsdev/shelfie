@@ -4,7 +4,6 @@ import '../../App.css';
 
 
 const Product = (props) => {
-    console.log('this is props on Product:', props)
         return (
             <div>
                 {props.inventoryList.map( (product) => (
