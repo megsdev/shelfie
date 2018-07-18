@@ -23,7 +23,7 @@ export default class Form extends Component {
     //The componentDidUpdate lifecycle hook should now be used to clear the inputs if the user navigates from the Edit view to the Add view.
             
     componentDidUpdate = (prevProps, prevState, snapshot) => {
-        if(prevProps.match.path === "/edit/:id" && prevState.editing) {
+        if(prevProps.match.path === "/edit/:id" && prevState.editing && this.props.match.path === '/add') {
             this.resetState()
         }
     }
